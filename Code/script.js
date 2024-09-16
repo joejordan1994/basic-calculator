@@ -1,5 +1,6 @@
-// Create query selector for display
+// Create query selector for display and set value to start at 0
 const display = document.querySelector("#display");
+let displayValue = 0;
 
 // Create query selectors to give functionality to the calculator buttons
 const buttons = {
@@ -28,3 +29,9 @@ const buttons = {
   equals: document.querySelector("#equals"),
 };
 
+// Create function to update the display every time the display value changes
+function updateDisplay() {
+  display.innerText = displayValue;
+}
+
+updateDisplay();
