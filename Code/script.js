@@ -34,6 +34,49 @@ const buttons = {
   equals: document.querySelector("#equals"),
 };
 
+// Create functions for basic functionality
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) {
+    return "Error"; // Prevent division by zero
+  }
+  return a / b;
+}
+
+function percent(a) {
+  return a / 100;
+}
+
+function toggleSign(a) {
+  return -a; // Switches between positive and negative
+}
+
+function operate(operator, a, b) {
+  switch (operator) {
+    case "+":
+      return add(a, b);
+    case "-":
+      return subtract(a, b);
+    case "*":
+      return multiply(a, b);
+    case "/":
+      return divide(a, b);
+    default:
+      return null;
+  }
+}
+
 // Create function to update the display every time the display value changes
 function updateDisplay() {
   display.innerText = displayValue;
