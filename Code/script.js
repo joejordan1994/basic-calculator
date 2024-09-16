@@ -2,9 +2,9 @@
 const display = document.querySelector("#display");
 let displayValue = 0;
 
-let firstOperator;
-let operand;
-let secondOperator;
+let firstOperand;
+let operator;
+let secondOperand;
 let result;
 
 // Create query selectors to give functionality to the calculator buttons
