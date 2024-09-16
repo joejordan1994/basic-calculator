@@ -1,23 +1,27 @@
-const clearButton = document.querySelector("#clear");
-const signButton = document.querySelector("#sign");
-const percentButton = document.querySelector("#percent");
-const divideButton = document.querySelector("#divide");
+const buttons = {
+  clear: document.querySelector("#clear"),
+  sign: document.querySelector("#sign"),
+  percent: document.querySelector("#percent"),
+  divide: document.querySelector("#divide"),
 
-const sevenButton = document.querySelector("#seven");
-const eightButton = document.querySelector("#eight");
-const nineButton = document.querySelector("#nine");
-const multiplyButton = document.querySelector("#multiply");
+  seven: document.querySelector("#seven"),
+  eight: document.querySelector("#eight"),
+  nine: document.querySelector("#nine"),
+  multiply: document.querySelector("#multiply"),
 
-const fourButton = document.querySelector("#four");
-const fiveButton = document.querySelector("#five");
-const sixButton = document.querySelector("#six");
-const minusButton = document.querySelector("#minus");
+  four: document.querySelector("#four"),
+  five: document.querySelector("#five"),
+  six: document.querySelector("#six"),
+  minus: document.querySelector("#minus"),
 
-const oneButton = document.querySelector("#one");
-const twoButton = document.querySelector("#two");
-const threeButton = document.querySelector("#three");
-const plusButton = document.querySelector("#plus");
+  one: document.querySelector("#one"),
+  two: document.querySelector("#two"),
+  three: document.querySelector("#three"),
+  plus: document.querySelector("#plus"),
 
-const zeroButton = document.querySelector("#zero");
-const decimalButton = document.querySelector("#decimal");
-const equalsButton = document.querySelector("#equals");
+  zero: document.querySelector("#zero"),
+  decimal: document.querySelector("#decimal"),
+  equals: document.querySelector("#equals"),
+
+  // Use buttons.clear to access the clear button;
+};
