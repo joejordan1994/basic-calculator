@@ -1,3 +1,7 @@
+// Create query selector for display
+const display = document.querySelector("#display");
+
+// Create query selectors to give functionality to the calculator buttons
 const buttons = {
   clear: document.querySelector("#clear"),
   sign: document.querySelector("#sign"),
@@ -22,6 +26,5 @@ const buttons = {
   zero: document.querySelector("#zero"),
   decimal: document.querySelector("#decimal"),
   equals: document.querySelector("#equals"),
-
-  // Use buttons.clear to access the clear button;
 };
+
