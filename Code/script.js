@@ -1,6 +1,11 @@
-// Create query selector for display and set value to start at 0
+// Create query selector for display and set value to start at 0, also create result variable
 const display = document.querySelector("#display");
 let displayValue = 0;
+
+let firstOperator;
+let operand;
+let secondOperator;
+let result;
 
 // Create query selectors to give functionality to the calculator buttons
 const buttons = {
