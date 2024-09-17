@@ -1,13 +1,16 @@
-// Create query selector for display and set value to start at 0, also create result variable
+// ======== Query Selectors ========
+
+// Select the display and set the initial display value
 const display = document.querySelector("#display");
 let displayValue = 0;
 
-let firstOperand;
-let operator;
-let secondOperand;
-let result;
+// Define variables for operands, operator, and result
+let firstOperand = null;
+let operator = null;
+let secondOperand = null;
+let result = null;
 
-// Create query selectors to give functionality to the calculator buttons
+// Select the calculator buttons
 const buttons = {
   clear: document.querySelector("#clear"),
   sign: document.querySelector("#sign"),
@@ -34,7 +37,83 @@ const buttons = {
   equals: document.querySelector("#equals"),
 };
 
-// Create functions for basic functionality
+// ======== Button Event Listeners ========
+
+// Functional buttons
+buttons.clear.addEventListener("click", clearCalculator);
+buttons.sign.addEventListener("click", () => {
+  displayValue = toggleSign(displayValue);
+  updateDisplay();
+});
+buttons.percent.addEventListener("click", () => {
+  displayValue = percent(displayValue);
+  updateDisplay();
+});
+buttons.divide.addEventListener("click", () => handleOperator("/"));
+buttons.multiply.addEventListener("click", () => handleOperator("*"));
+buttons.minus.addEventListener("click", () => handleOperator("-"));
+buttons.plus.addEventListener("click", () => handleOperator("+"));
+buttons.equals.addEventListener("click", calculateResult);
+
+// Number buttons
+buttons.zero.addEventListener("click", () => appendNumber(0));
+buttons.one.addEventListener("click", () => appendNumber(1));
+buttons.two.addEventListener("click", () => appendNumber(2));
+buttons.three.addEventListener("click", () => appendNumber(3));
+buttons.four.addEventListener("click", () => appendNumber(4));
+buttons.five.addEventListener("click", () => appendNumber(5));
+buttons.six.addEventListener("click", () => appendNumber(6));
+buttons.seven.addEventListener("click", () => appendNumber(7));
+buttons.eight.addEventListener("click", () => appendNumber(8));
+buttons.nine.addEventListener("click", () => appendNumber(9));
+
+// Decimal button
+buttons.decimal.addEventListener("click", appendDecimal);
+
+// ======== Calculator Functions ========
+
+// Append a number to the current display value
+function appendNumber(number) {
+  displayValue = displayValue * 10 + number;
+  updateDisplay();
+}
+
+// Append a decimal to the current display value
+function appendDecimal() {
+  if (!displayValue.toString().includes(".")) {
+    displayValue += ".";
+    updateDisplay();
+  }
+}
+
+// Handle operator input
+function handleOperator(op) {
+  firstOperand = displayValue;
+  operator = op;
+  displayValue = 0; // Reset display value for second operand
+  updateDisplay();
+}
+
+// Perform the calculation when the equals button is pressed
+function calculateResult() {
+  secondOperand = displayValue;
+  result = operate(operator, firstOperand, secondOperand);
+  displayValue = result;
+  updateDisplay();
+}
+
+// Reset the calculator
+function clearCalculator() {
+  displayValue = 0;
+  firstOperand = null;
+  secondOperand = null;
+  operator = null;
+  result = null;
+  updateDisplay();
+}
+
+// ======== Basic Operations ========
+
 function add(a, b) {
   return a + b;
 }
@@ -62,6 +141,8 @@ function toggleSign(a) {
   return -a; // Switches between positive and negative
 }
 
+// ======== Operation Logic ========
+
 function operate(operator, a, b) {
   switch (operator) {
     case "+":
@@ -77,9 +158,11 @@ function operate(operator, a, b) {
   }
 }
 
-// Create function to update the display every time the display value changes
+// ======== Update Display ========
+
 function updateDisplay() {
   display.innerText = displayValue;
 }
 
+// Initial display update
 updateDisplay();
