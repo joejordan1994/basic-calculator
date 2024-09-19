@@ -2,7 +2,7 @@
 
 // Select the display and set the initial display value
 const display = document.querySelector("#display");
-let displayValue = 0;
+let displayValue = "0";
 
 // Define variables for operands, operator, and result
 let firstOperand = null;
@@ -74,13 +74,17 @@ buttons.decimal.addEventListener("click", appendDecimal);
 
 // Append a number to the current display value
 function appendNumber(number) {
-  displayValue = displayValue * 10 + number;
+  if (displayValue === "0") {
+    displayValue = number.toString();
+  } else {
+    displayValue += number.toString();
+  }
   updateDisplay();
 }
 
 // Append a decimal to the current display value
 function appendDecimal() {
-  if (!displayValue.toString().includes(".")) {
+  if (!displayValue.includes(".")) {
     displayValue += ".";
     updateDisplay();
   }
@@ -88,23 +92,47 @@ function appendDecimal() {
 
 // Handle operator input
 function handleOperator(op) {
-  firstOperand = displayValue;
+  if (operator && displayValue === "") {
+    operator = op; // Allow changing the operator before entering the second operand
+    return;
+  }
+
+  if (firstOperand === null) {
+    firstOperand = parseFloat(displayValue);
+  } else if (operator) {
+    secondOperand = parseFloat(displayValue);
+    firstOperand = operate(operator, firstOperand, secondOperand);
+    displayValue = firstOperand.toString();
+    updateDisplay();
+  }
+
   operator = op;
-  displayValue = 0; // Reset display value for second operand
-  updateDisplay();
+  displayValue = ""; // Reset display value for the next operand
 }
 
 // Perform the calculation when the equals button is pressed
 function calculateResult() {
-  secondOperand = displayValue;
+  if (operator === null || displayValue === "") {
+    return; // Nothing to calculate
+  }
+
+  secondOperand = parseFloat(displayValue);
   result = operate(operator, firstOperand, secondOperand);
-  displayValue = result;
+
+  if (result === "Error") {
+    displayValue = "Error";
+  } else {
+    displayValue = result.toString();
+    firstOperand = result; // Allow for continued operations
+  }
+
+  operator = null;
   updateDisplay();
 }
 
 // Reset the calculator
 function clearCalculator() {
-  displayValue = 0;
+  displayValue = "0";
   firstOperand = null;
   secondOperand = null;
   operator = null;
@@ -122,11 +150,11 @@ function subtract(a, b) {
   return a - b;
 }
 
-function multiply(a, b) {
+function multiplyFunc(a, b) {
   return a * b;
 }
 
-function divide(a, b) {
+function divideFunc(a, b) {
   if (b === 0) {
     return "Error"; // Prevent division by zero
   }
@@ -134,11 +162,11 @@ function divide(a, b) {
 }
 
 function percent(a) {
-  return a / 100;
+  return (parseFloat(a) / 100).toString();
 }
 
 function toggleSign(a) {
-  return -a; // Switches between positive and negative
+  return (parseFloat(a) * -1).toString(); // Switches between positive and negative
 }
 
 // ======== Operation Logic ========
@@ -150,9 +178,9 @@ function operate(operator, a, b) {
     case "-":
       return subtract(a, b);
     case "*":
-      return multiply(a, b);
+      return multiplyFunc(a, b);
     case "/":
-      return divide(a, b);
+      return divideFunc(a, b);
     default:
       return null;
   }
