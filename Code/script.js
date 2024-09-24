@@ -1,16 +1,11 @@
-// ======== Query Selectors ========
-
-// Select the display and set the initial display value
 const display = document.querySelector("#display");
 let displayValue = "0";
 
-// Define variables for operands, operator, and result
 let firstOperand = null;
 let operator = null;
 let secondOperand = null;
 let result = null;
 
-// Select the calculator buttons
 const buttons = {
   clear: document.querySelector("#clear"),
   sign: document.querySelector("#sign"),
@@ -37,9 +32,6 @@ const buttons = {
   equals: document.querySelector("#equals"),
 };
 
-// ======== Button Event Listeners ========
-
-// Functional buttons
 buttons.clear.addEventListener("click", clearCalculator);
 buttons.sign.addEventListener("click", () => {
   displayValue = toggleSign(displayValue);
@@ -55,7 +47,6 @@ buttons.minus.addEventListener("click", () => handleOperator("-"));
 buttons.plus.addEventListener("click", () => handleOperator("+"));
 buttons.equals.addEventListener("click", calculateResult);
 
-// Number buttons
 buttons.zero.addEventListener("click", () => appendNumber(0));
 buttons.one.addEventListener("click", () => appendNumber(1));
 buttons.two.addEventListener("click", () => appendNumber(2));
@@ -67,12 +58,8 @@ buttons.seven.addEventListener("click", () => appendNumber(7));
 buttons.eight.addEventListener("click", () => appendNumber(8));
 buttons.nine.addEventListener("click", () => appendNumber(9));
 
-// Decimal button
 buttons.decimal.addEventListener("click", appendDecimal);
 
-// ======== Calculator Functions ========
-
-// Append a number to the current display value
 function appendNumber(number) {
   if (displayValue === "0") {
     displayValue = number.toString();
@@ -82,7 +69,6 @@ function appendNumber(number) {
   updateDisplay();
 }
 
-// Append a decimal to the current display value
 function appendDecimal() {
   if (!displayValue.includes(".")) {
     displayValue += ".";
@@ -90,10 +76,9 @@ function appendDecimal() {
   }
 }
 
-// Handle operator input
 function handleOperator(op) {
   if (operator && displayValue === "") {
-    operator = op; // Allow changing the operator before entering the second operand
+    operator = op;
     return;
   }
 
@@ -107,13 +92,12 @@ function handleOperator(op) {
   }
 
   operator = op;
-  displayValue = ""; // Reset display value for the next operand
+  displayValue = "";
 }
 
-// Perform the calculation when the equals button is pressed
 function calculateResult() {
   if (operator === null || displayValue === "") {
-    return; // Nothing to calculate
+    return;
   }
 
   secondOperand = parseFloat(displayValue);
@@ -123,7 +107,7 @@ function calculateResult() {
     displayValue = "Error";
   } else {
     displayValue = result.toString();
-    firstOperand = result; // Allow for continued operations
+    firstOperand = result;
   }
 
   operator = null;
@@ -140,8 +124,6 @@ function clearCalculator() {
   updateDisplay();
 }
 
-// ======== Basic Operations ========
-
 function add(a, b) {
   return a + b;
 }
@@ -156,7 +138,7 @@ function multiplyFunc(a, b) {
 
 function divideFunc(a, b) {
   if (b === 0) {
-    return "Error"; // Prevent division by zero
+    return "Error";
   }
   return a / b;
 }
@@ -166,10 +148,8 @@ function percent(a) {
 }
 
 function toggleSign(a) {
-  return (parseFloat(a) * -1).toString(); // Switches between positive and negative
+  return (parseFloat(a) * -1).toString();
 }
-
-// ======== Operation Logic ========
 
 function operate(operator, a, b) {
   switch (operator) {
@@ -185,8 +165,6 @@ function operate(operator, a, b) {
       return null;
   }
 }
-
-// ======== Update Display ========
 
 function updateDisplay() {
   display.innerText = displayValue;
