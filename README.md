@@ -31,3 +31,5 @@ Simply open the `index.html` file in your browser and start calculating. It’s 
 - Adding keyboard support.
 - More operations like square roots or exponentiation.
 - Chaining multiple operations (e.g., `2 + 3 * 5`).
+
+test
